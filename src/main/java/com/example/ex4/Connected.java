@@ -2,10 +2,11 @@ package com.example.ex4;
 
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 @Component
-public class Connected{
+public class Connected implements Serializable {
     private LinkedList<String> connected;
 
     public Connected() {connected = new LinkedList<String>();}

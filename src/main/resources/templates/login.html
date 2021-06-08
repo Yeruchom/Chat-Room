@@ -30,7 +30,9 @@
     </div>
 </form>
 
-<span th:if="${loggedIn}"><a th:href="@{/chatroom/{name}(name=${name})}">Go to ChatRoom</a></span>
+<span th:if="${loggedIn}"><a th:href="@{/chatroom}">Go to ChatRoom</a></span>
+<!--<span th:if="${loggedIn}"><a th:href="@{/chatroom/{name}(name=${name})}">Go to ChatRoom</a></span>-->
+<span th:if="${loggedIn}"><a href="/logout">Logout</a></span>
 
 </body>
 </html>

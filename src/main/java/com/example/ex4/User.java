@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 @Component
-public class Test implements Serializable {
-    public Test() {}
+public class User implements Serializable {
+    public User() {System.out.println("session created");}
     private boolean test = false;
     private String myName;
     public boolean getTest(){return test;};

@@ -11,8 +11,9 @@ public class Configurations {
     @Bean
 //    @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
     @SessionScope
-    public Test sessionBean(){
-        Test loggedIn = new Test();
+    public User sessionBean(){
+        User loggedIn = new User();
+        System.out.println("a new session. value:" + loggedIn.getTest());
         return loggedIn;
     }
 
