@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>login</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Users</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 </head>
 <body>
 <h1>test that this works</h1>
+<!--<h2><span th:unless="${loggedIn} == 'true'" th:text="not logged in"></span></h2>-->
+<span th:if="${loggedIn}">Welcome <span th:text="${name}"></span></span>
+
+<form action="#" th:action="@{/login}" method="post">
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="name" class="col-form-label">Name</label>
+            <input type="text"  class="form-control" name="name" id="name" placeholder="Name" required>
+            <!-- this is equivalent to : <input type="text" th:field="*{name}" -->
+
+<!--            <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="text-danger"></span>-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mt-5">
+            <input type="submit" class="btn btn-primary" value="loog in">
+        </div>
+    </div>
+</form>
+
+<span th:if="${loggedIn}"><a th:href="@{/chatroom/{name}(name=${name})}">Go to ChatRoom</a></span>
+
 </body>
 </html>
