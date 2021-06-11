@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +26,9 @@ public class MainController {
 
     @Autowired
     private MessageRepository db;
+
+//    @Resource(name = "SessionListenerFoo")
+//    private mySessionListener sl;
 
     @GetMapping("/")
     public String MainPage(Model model) {
@@ -45,11 +49,16 @@ public class MainController {
     }
 
     @GetMapping("/logout")
-    public ModelAndView Logout() {
+    public ModelAndView Logout(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("redirect:/");
 
         mySessionBean.setTest(false);
         connectedUsers.remove(mySessionBean.getName());
+
+        System.out.println("invalidating");
+        request.getSession().invalidate();//do i need this? and getting the HttpServletRequest,...
+
+
         return modelAndView;
     }
 
@@ -78,8 +87,9 @@ public class MainController {
 
     @PostMapping("/chatroom/sendMessage")
     public String SendMessage(@RequestParam String message, Model model) {
-        System.out.println("got message " + message);
+//        System.out.println("got message " + message);
         //validate the message!!!!!!!!!!!!!!!!!
+
         db.save(new Message(mySessionBean.getName(), message));
 
         return "forward:/chatroom";

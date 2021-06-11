@@ -1,6 +1,5 @@
 package com.example.ex4;
 
-import com.example.ex4.Connected;
 import com.example.ex4.beans.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,4 +23,13 @@ public class Configurations {
     public Connected ConnectedUserBean(){
         return new Connected();
     }
+
+//    @Bean
+//    mySessionListener SessionListenerFoo () {
+//        return new mySessionListener();
+//    }
+
+
+
 }
+

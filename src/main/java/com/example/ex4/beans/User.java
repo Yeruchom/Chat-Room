@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Component
 public class User implements Serializable {
-    public User() {System.out.println("session created");}
+    public User() {}
     private boolean test = false;
     private String myName;
     public boolean getTest(){return test;};
