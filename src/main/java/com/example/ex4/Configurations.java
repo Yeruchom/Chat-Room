@@ -1,5 +1,6 @@
 package com.example.ex4;
 
+import com.example.ex4.beans.Connected;
 import com.example.ex4.beans.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

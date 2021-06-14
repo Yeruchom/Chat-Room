@@ -9,30 +9,45 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 </head>
 <body>
-<h1>test that this works</h1>
-<!--<h2><span th:unless="${loggedIn} == 'true'" th:text="not logged in"></span></h2>-->
-<span th:if="${loggedIn}">Welcome <span th:text="${name}"></span></span>
+<div class="container">
+    <h1>Welcome to our Chat room</h1>
 
-<form action="#" th:action="@{/login}" method="post">
-    <div class="row">
-        <div class="form-group col-md-6">
-            <label for="name" class="col-form-label">Name</label>
-            <input type="text"  class="form-control" name="name" id="name" placeholder="Name" required>
-            <!-- this is equivalent to : <input type="text" th:field="*{name}" -->
-
-<!--            <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="text-danger"></span>-->
-        </div>
+    <span th:if="${exists}">
+    <div class="alert alert-info row">
+        user <span th:text="' ' + ${name} ' '+"></span> is already connected.
     </div>
-    <div class="row">
-        <div class="col-md-6 mt-5">
-            <input type="submit" class="btn btn-primary" value="loog in">
+    </span>
+
+    <span th:unless="${loggedIn} or ${exists}" >
+        <div class="alert alert-info row">
+            you are not logged in. please  enter your name to logg in.
         </div>
-    </div>
-</form>
+    </span>
 
-<span th:if="${loggedIn}"><a th:href="@{/chatroom}">Go to ChatRoom</a></span>
-<!--<span th:if="${loggedIn}"><a th:href="@{/chatroom/{name}(name=${name})}">Go to ChatRoom</a></span>-->
-<span th:if="${loggedIn}"><a href="/logout">Logout</a></span>
+    <span th:if="${loggedIn}"><div class="alert alert-info row">
+        <strong>Hi <span th:text=" ${name} "> </span> </strong> would you want to join our Chat room?
+        </div> </span>
 
+
+    <span th:unless="${loggedIn}">
+        <form action="#" th:action="@{/login}" method="post">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="name" class="col-form-label">Name</label>
+                    <input type="text"  class="form-control" name="name" id="name" placeholder="Name" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mt-5">
+                    <input type="submit" class="btn btn-primary" value="logg in">
+                </div>
+            </div>
+        </form>
+    </span>
+
+    <span th:if="${loggedIn}"><a class="btn btn-primary btn-lg btn-block" th:href="@{/chatroom}">Go to ChatRoom</a></span>
+
+    <span th:if="${loggedIn}"><a href="/logout">Logout</a></span>
+</div>
 </body>
 </html>

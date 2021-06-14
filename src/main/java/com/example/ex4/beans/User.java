@@ -7,10 +7,10 @@ import java.io.Serializable;
 @Component
 public class User implements Serializable {
     public User() {}
-    private boolean test = false;
+    private boolean loggedIn = false;
     private String myName;
-    public boolean getTest(){return test;};
-    public void setTest(boolean t){this.test = t;}
+    public boolean getLoggedIn(){return loggedIn;};
+    public void setLoggedIn(boolean l){this.loggedIn = l;}
     public void setName(String name){this.myName = name;}
     public String getName() {
         return myName;

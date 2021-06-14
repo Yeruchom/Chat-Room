@@ -1,8 +1,9 @@
-package com.example.ex4;
+package com.example.ex4.controllers;
 
-import com.example.ex4.Connected;
+import com.example.ex4.Message;
+import com.example.ex4.MessageRepository;
+import com.example.ex4.beans.Connected;
 import com.example.ex4.beans.User;
-import com.example.ex4.Configurations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,14 @@ public class MainController {
     @PostMapping("/login")
     public String login(@RequestParam(name = "name") @NotBlank String name, Model model) {
 
-        mySessionBean.setTest(true);
+        if(connectedUsers.exists(name)){
+            model.addAttribute("exists", "t");
+            model.addAttribute("name", name);
+
+            return "login";
+        }
+
+        mySessionBean.setLoggedIn(true);
         mySessionBean.setName(name);
 
         connectedUsers.add(name);
@@ -52,57 +60,31 @@ public class MainController {
     public ModelAndView Logout(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("redirect:/");
 
-        mySessionBean.setTest(false);
-        connectedUsers.remove(mySessionBean.getName());
-
-        System.out.println("invalidating");
-        request.getSession().invalidate();//do i need this? and getting the HttpServletRequest,...
-
-
+//        mySessionBean.setTest(false);
+//        connectedUsers.remove(mySessionBean.getName()); will happen in the session listener
+        request.getSession().invalidate();
         return modelAndView;
     }
 
 
     @GetMapping("/connectedUsers")
     public @ResponseBody List<String> ConnectedUsers(Model model) {
-//        if (!mySessionBean.getTest()) {
-//            System.out.println("not logged in. redirecting to login page");
-//            return "redirect:/";
-//        }
 
-        List<String> copyOfConnected = new LinkedList<String>(connectedUsers.getConnected());
-        String name = mySessionBean.getName();
+        List<String> copyOfConnected = new LinkedList<String>(connectedUsers.getConnected(mySessionBean.getName()));
 
-        //just for test
         copyOfConnected.add("A");
         copyOfConnected.add("b");
 
-        copyOfConnected.remove(name);//remove the current user from the list of connected users
-//
-//        model.addAttribute("name", name);
-//        model.addAttribute("connected", copyOfConnected);
         return copyOfConnected;
     }
 
 
     @RequestMapping("/chatroom")
     public String ChatRoom(Model model) {
-        if (!mySessionBean.getTest()) {//this is made by the interceptor
-            System.out.println("not logged in. redirecting to login page");
-            return "redirect:/";
-        }
-
-//        List<String> copyOfConnected = new LinkedList<String>(connectedUsers.getConnected());
-//        String name = mySessionBean.getName();
-//
-//        //just for test
-//        copyOfConnected.add("A");
-//        copyOfConnected.add("b");
-//
-//        copyOfConnected.remove(name);//remove the current user from the list of connected users
-//
-//        model.addAttribute("name", name);
-//        model.addAttribute("connected", copyOfConnected);
+//        if (!mySessionBean.getTest()) {//this is made by the interceptor
+//            System.out.println("not logged in. redirecting to login page");
+//            return "redirect:/";
+//        }
         return "chatroom";
     }
 
