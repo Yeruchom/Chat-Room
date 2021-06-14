@@ -14,7 +14,7 @@ public class Configurations {
     @SessionScope
     public User sessionBean(){
         User loggedIn = new User();
-        System.out.println("a new session. value:" + loggedIn.getTest());
+//        System.out.println("a new session. value:" + loggedIn.getTest());
         return loggedIn;
     }
 

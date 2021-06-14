@@ -63,12 +63,12 @@ public class MainController {
     }
 
 
-    @RequestMapping("/chatroom")
-    public String ChatRoom(Model model) {
-        if (!mySessionBean.getTest()) {
-            System.out.println("not logged in. redirecting to login page");
-            return "redirect:/";
-        }
+    @GetMapping("/connectedUsers")
+    public @ResponseBody List<String> ConnectedUsers(Model model) {
+//        if (!mySessionBean.getTest()) {
+//            System.out.println("not logged in. redirecting to login page");
+//            return "redirect:/";
+//        }
 
         List<String> copyOfConnected = new LinkedList<String>(connectedUsers.getConnected());
         String name = mySessionBean.getName();
@@ -78,9 +78,31 @@ public class MainController {
         copyOfConnected.add("b");
 
         copyOfConnected.remove(name);//remove the current user from the list of connected users
+//
+//        model.addAttribute("name", name);
+//        model.addAttribute("connected", copyOfConnected);
+        return copyOfConnected;
+    }
 
-        model.addAttribute("name", name);
-        model.addAttribute("connected", copyOfConnected);
+
+    @RequestMapping("/chatroom")
+    public String ChatRoom(Model model) {
+        if (!mySessionBean.getTest()) {//this is made by the interceptor
+            System.out.println("not logged in. redirecting to login page");
+            return "redirect:/";
+        }
+
+//        List<String> copyOfConnected = new LinkedList<String>(connectedUsers.getConnected());
+//        String name = mySessionBean.getName();
+//
+//        //just for test
+//        copyOfConnected.add("A");
+//        copyOfConnected.add("b");
+//
+//        copyOfConnected.remove(name);//remove the current user from the list of connected users
+//
+//        model.addAttribute("name", name);
+//        model.addAttribute("connected", copyOfConnected);
         return "chatroom";
     }
 
@@ -100,6 +122,11 @@ public class MainController {
         return db.findAll();
     }
 
+    @GetMapping("/chatroom/search")
+    public String Search(Model model){
+
+        return "search";
+    }
 
 //@RequestMapping("/chatroom/message")
 //public String SendMessage(Model model){
