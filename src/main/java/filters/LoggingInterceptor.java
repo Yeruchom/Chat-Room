@@ -21,7 +21,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
             return true;
 
         if (!mySessionBean.getLoggedIn()){
-            System.out.print("in intercepter. not logged in -> redirecting.");
+            System.out.print("redirecting in interceptor. uri: " + request.getRequestURI());
             response.sendRedirect("/");
             return false;
         }

@@ -7,15 +7,21 @@ import com.example.ex4.beans.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.LinkedList;
 import java.util.List;
 
+//@Validated
 @Controller
 public class MainController {
 
@@ -36,8 +42,17 @@ public class MainController {
         return "login";
     }
 
+
     @PostMapping("/login")
-    public String login(@RequestParam(name = "name") @NotBlank String name, Model model) {
+    //    public String login(@RequestParam(name = "name") @NotBlank String name, Model model) {
+    public String login(@RequestParam String name, Model model) {
+        if(name.trim() == "") {
+            model.addAttribute("empty", "t");
+            return "login";
+
+//            result.rejectValue("name", "errCode", "name can't be empty");
+//            return "login";
+        }
 
         if(connectedUsers.exists(name)){
             model.addAttribute("exists", "t");
@@ -80,23 +95,22 @@ public class MainController {
 
 
     @RequestMapping("/chatroom")
-    public String ChatRoom(Model model) {
-//        if (!mySessionBean.getTest()) {//this is made by the interceptor
-//            System.out.println("not logged in. redirecting to login page");
-//            return "redirect:/";
-//        }
+    public String ChatRoom(Message message, Model model) {
+
+        model.addAttribute("name", mySessionBean.getName());
         return "chatroom";
     }
 
 
     @PostMapping("/chatroom/sendMessage")
-    public String SendMessage(@RequestParam String message, Model model) {
-//        System.out.println("got message " + message);
-        //validate the message!!!!!!!!!!!!!!!!!
+    public String SendMessage(@Valid Message message, BindingResult result, Model model) {
+        if(result.hasErrors()){
+            model.addAttribute("name", mySessionBean.getName());
+            return "chatroom"; //forward:/chatroom
+        }
 
-        db.save(new Message(mySessionBean.getName(), message));
-
-        return "forward:/chatroom";
+        db.save(message);
+            return "forward:/chatroom";
     }
 
     @GetMapping("/chatroom/getChat")

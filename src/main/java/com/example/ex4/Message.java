@@ -16,11 +16,11 @@ public class Message{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NotEmpty(message = "Name is mandatory")
+    @NotEmpty(message = "Name is mandatory")//no need for this since it is filled out by the thymeleaf
     private String name;
 
     @NotEmpty(message = "Can't enter an empty message")
-    private String message;
+    private String text;
 
 //    @GeneratedValue(LocalTime.now()) //default value
     private LocalTime time;
@@ -29,7 +29,7 @@ public class Message{
 
     public Message(String n, String m) {//, LocalTime t = LocalDate.now()
         this.name = n;
-        this.message = m;
+        this.text = m;
     }
 
     public void setId(long id) {
@@ -44,21 +44,21 @@ public class Message{
         this.name = n;
     }
 
-    public void setMessage(String m) {
-        this.message = m;
+    public void setText(String m) {
+        this.text = m;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getMessage() {
-        return message;
+    public String getText() {
+        return text;
     }
 
     @Override
     public String toString() {
-        return "Message{" + "id=" + id + ", name=" + name + ", message=" + message +'}';
+        return "Message{" + "id=" + id + ", name=" + name + ", text=" + text +'}';
     }
 }
 
