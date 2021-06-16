@@ -34,9 +34,6 @@ public class MainController {
     @Autowired
     private MessageRepository db;
 
-//    @Resource(name = "SessionListenerFoo")
-//    private mySessionListener sl;
-
     @GetMapping("/")
     public String MainPage(Model model) {
         return "login";
@@ -84,6 +81,7 @@ public class MainController {
 
     @GetMapping("/connectedUsers")
     public @ResponseBody List<String> ConnectedUsers(Model model) {
+        System.out.println("in fetch, session:" + mySessionBean.getName());
 
         List<String> copyOfConnected = new LinkedList<String>(connectedUsers.getConnected(mySessionBean.getName()));
 
@@ -113,8 +111,11 @@ public class MainController {
             return "forward:/chatroom";
     }
 
-    @GetMapping("/chatroom/getChat")
-    public @ResponseBody List<Message> GetMessage(){
+    @GetMapping("/chatroom/getChat/{lastId}")
+    public @ResponseBody List<Message> GetMessage(@PathVariable String lastId){
+        if(false)//no new message
+            return null;
+
         return db.findAll();
     }
 
@@ -124,9 +125,13 @@ public class MainController {
         return "search";
     }
 
-//@RequestMapping("/chatroom/message")
-//public String SendMessage(Model model){
-//    System.out.println("got message");
-//    return "forward:/chatroom";
-//}
+    @GetMapping("/chatroom/search/name/{name}")
+    public @ResponseBody List<Message> GetByName(@PathVariable("name") String name){
+        return db.findAllByName(name);
+    }
+    @GetMapping("/chatroom/search/message/{text}")
+    public @ResponseBody List<Message> GetByMessage(@PathVariable("text") String text){
+        return db.findAllByTextContains(text);
+    }
+
 }

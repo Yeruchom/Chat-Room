@@ -1,3 +1,39 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta http-equiv="x-ua-compatible" content="ie=edge">-->
+<!--    <title>Search</title>-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
+<!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Search messages</h1>-->
+
+
+<!--<form action="#" th:action="@{/login}" method="post">-->
+<!--    <div class="row">-->
+<!--        <div class="form-group col-md-6">-->
+<!--            <label for="serach" class="col-form-label">Search</label>-->
+<!--            <input type="text"  class="form-control" name="serach" id="serach" required>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-6 mt-5">-->
+<!--            <input type="submit" class="btn btn-primary" value="loog in">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</form>-->
+
+
+<!--<a href="/chatroom">Back to ChatRoom</a>-->
+<!--<a href="/logout">Log out</a>-->
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
@@ -5,14 +41,94 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Search</title>
+    <style>
+        #show{visibility:hidden}
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <script>
+        (function(){
+            document.addEventListener('DOMContentLoaded', function(){
+                document.getElementById("send_name").addEventListener('click',search_name,false);
+                document.getElementById("send_message").addEventListener('click',search_massage,false);
+            }, false);
+
+            function search_name(){
+                let name = document.getElementById("byName").value;
+                let url = "http://localhost:8080/chatroom/search/name/"+name;
+                fetch(url)
+                    .then(function (response) {
+                        if (response.status !== 200) {
+                            return;
+                        }
+                        response.json().then(function (data) {
+                            document.getElementById("show").style.visibility = "visible";
+                            DisplayMessages(data);
+                        });
+                    });
+            }
+            function search_massage(){
+                let message = document.getElementById("byMessage").value;
+                let url = "http://localhost:8080/chatroom/search/message/"+message;
+                fetch(url)
+                    .then(function (response) {
+                        if (response.status !== 200) {
+                            return;
+                        }
+                        response.json().then(function (data) {
+                            document.getElementById("show").style.visibility = "visible";
+                            DisplayMessages(data);
+                        });
+                    });
+            }
+            function DisplayMessages(chatMessages){
+                // console.log("displaing");
+
+                let chatWindow = document.getElementById("here");
+
+                //first clear all messages
+                while (chatWindow.hasChildNodes())
+                    chatWindow.removeChild(chatWindow.lastChild);
+
+                //display the messages
+                for(i in chatMessages){
+                    let m = document.createElement("li");
+                    m.className = "list-group-item list-group-item-info";
+                    m.innerHTML = "name: " + chatMessages[i].name + " " + chatMessages[i].text;
+                    chatWindow.appendChild(m);
+                }
+            }
+
+
+        }());
+
+    </script>
+
+
+    <meta name="NetsparkQuiltingResult" total-length="4252" removed="0" rules-found="w3089,w8081,w8082,w3140,w1413,w1418,w1419,w8672,w3902,w5493,w4438,w2339,w2701,w5513,w240" />
 </head>
 <body>
 <h1>Search messages</h1>
 
+<div id ="show" >
+    <p>these are the results</p>
+    <ul class="list-group" id="here">
+    </ul>
+</div>
 
+<h2>search by name</h2>
+<label for="byName">enter name for his messages</label>
+<input type="text" name ="byName" id="byName" required><br>
+<button class="btn btn-primary" id ="send_name">send</button>
+<br>
+
+<h2>search by message</h2>
+<label for="byMessage">enter content to look for messages</label>
+<input type="text" name ="byMessage" id="byMessage" required><br>
+<button class="btn btn-primary" id ="send_message">send</button>
+<br>
+<!--
 <form action="#" th:action="@{/login}" method="post">
     <div class="row">
         <div class="form-group col-md-6">
@@ -25,7 +141,7 @@
             <input type="submit" class="btn btn-primary" value="loog in">
         </div>
     </div>
-</form>
+</form>-->
 
 
 <a href="/chatroom">Back to ChatRoom</a>

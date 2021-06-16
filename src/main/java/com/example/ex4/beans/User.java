@@ -9,10 +9,10 @@ public class User implements Serializable {
     public User() {}
     private boolean loggedIn = false;
     private String myName;
-    public boolean getLoggedIn(){return loggedIn;};
-    public void setLoggedIn(boolean l){this.loggedIn = l;}
+    public synchronized boolean getLoggedIn(){return loggedIn;};
+    public synchronized void setLoggedIn(boolean l){this.loggedIn = l;}
     public void setName(String name){this.myName = name;}
-    public String getName() {
+    public synchronized String getName() {
         return myName;
     }
 }

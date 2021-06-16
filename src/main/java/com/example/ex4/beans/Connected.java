@@ -12,16 +12,16 @@ public class Connected implements Serializable {
 
     public Connected() {connected = new LinkedList<String>();}
 
-    public LinkedList<String> getConnected() {return connected;}
+//    public synchronized LinkedList<String> getConnected() {return connected;}
 
-    public LinkedList<String> getConnected(String except) {
+    public synchronized LinkedList<String> getConnected(String except) {
         LinkedList<String> copyOfConnected = new LinkedList<String>(connected);
         copyOfConnected.remove(except);
         return copyOfConnected;
     }
-    public boolean exists(String name){
+    public synchronized boolean exists(String name){
         return connected.contains(name);
     }
-    public void add(String name){connected.add(name);}
-    public void remove(String name){connected.remove(name);}
+    public synchronized void add(String name){connected.add(name);}
+    public synchronized void remove(String name){connected.remove(name);}
 }

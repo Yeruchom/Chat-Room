@@ -7,4 +7,6 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message, Long> {
     @Override
     List<Message> findAllById(Iterable<Long> iterable);
+    List<Message> findAllByName(String name);
+    List<Message> findAllByTextContains(String text);
 }
