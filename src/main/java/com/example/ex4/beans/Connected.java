@@ -10,7 +10,9 @@ import java.util.List;
 public class Connected implements Serializable {
     private LinkedList<String> connected;
 
-    public Connected() {connected = new LinkedList<String>();}
+    private boolean changed = false;
+
+    public Connected() {connected = new LinkedList<String>(); }
 
 //    public synchronized LinkedList<String> getConnected() {return connected;}
 
@@ -22,6 +24,15 @@ public class Connected implements Serializable {
     public synchronized boolean exists(String name){
         return connected.contains(name);
     }
-    public synchronized void add(String name){connected.add(name);}
-    public synchronized void remove(String name){connected.remove(name);}
+    public synchronized void add(String name){connected.add(name);
+        setChanged(true);}
+    public synchronized void remove(String name){connected.remove(name);
+        setChanged(true);}
+
+    public synchronized void setChanged(boolean changed) {
+        this.changed = changed;
+    }
+    public synchronized boolean changed() {
+        return changed;
+    }
 }

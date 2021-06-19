@@ -9,4 +9,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findAllById(Iterable<Long> iterable);
     List<Message> findAllByName(String name);
     List<Message> findAllByTextContains(String text);
+    List<Message> findFirst5ByOrderByIdDesc();
+    Message findFirstByOrderByIdDesc();
+
 }

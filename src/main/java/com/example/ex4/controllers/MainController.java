@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -81,8 +82,14 @@ public class MainController {
 
     @GetMapping("/connectedUsers")
     public @ResponseBody List<String> ConnectedUsers(Model model) {
-        System.out.println("in fetch, session:" + mySessionBean.getName());
+//        System.out.println("in fetch, session:" + mySessionBean.getName());
+        if(!connectedUsers.changed())
+        {
+             System.out.println("connected returning null");
+            return null;
+        }
 
+        connectedUsers.setChanged(false);
         List<String> copyOfConnected = new LinkedList<String>(connectedUsers.getConnected(mySessionBean.getName()));
 
         copyOfConnected.add("A");
@@ -113,10 +120,14 @@ public class MainController {
 
     @GetMapping("/chatroom/getChat/{lastId}")
     public @ResponseBody List<Message> GetMessage(@PathVariable String lastId){
-        if(false)//no new message
+        if(db.findFirstByOrderByIdDesc() == null || db.findFirstByOrderByIdDesc().getId() <= Long.parseLong(lastId)) //no (new) message
+        {
+            System.out.println("db returnd null");
             return null;
-
-        return db.findAll();
+        }
+        List<Message> last5Messages = db.findFirst5ByOrderByIdDesc();
+        Collections.reverse(last5Messages);
+        return last5Messages;
     }
 
     @GetMapping("/chatroom/search")
@@ -129,6 +140,7 @@ public class MainController {
     public @ResponseBody List<Message> GetByName(@PathVariable("name") String name){
         return db.findAllByName(name);
     }
+
     @GetMapping("/chatroom/search/message/{text}")
     public @ResponseBody List<Message> GetByMessage(@PathVariable("text") String text){
         return db.findAllByTextContains(text);
