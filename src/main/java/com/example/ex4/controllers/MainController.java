@@ -80,10 +80,11 @@ public class MainController {
     }
 
 
-    @GetMapping("/connectedUsers")
-    public @ResponseBody List<String> ConnectedUsers(Model model) {
+    @GetMapping("/connectedUsers/{anyway}")
+    public @ResponseBody List<String> ConnectedUsers(@PathVariable boolean anyway, Model model) {
+//    public @ResponseBody List<String> ConnectedUsers(@PathVariable(name = "anyway", required = false) boolean anyway, Model model) {
 //        System.out.println("in fetch, session:" + mySessionBean.getName());
-        if(!connectedUsers.changed())
+        if(!connectedUsers.changed() && !anyway)
         {
              System.out.println("connected returning null");
             return null;

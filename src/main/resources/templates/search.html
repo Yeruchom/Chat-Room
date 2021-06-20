@@ -56,10 +56,11 @@
 
             function search_name(){
                 let name = document.getElementById("byName").value;
-                let url = "http://localhost:8080/chatroom/search/name/"+name;
+                let url = "/chatroom/search/name/"+name;
                 fetch(url)
                     .then(function (response) {
                         if (response.status !== 200) {
+                            console.log("there was an error. response.status: ", response.status);
                             return;
                         }
                         response.json().then(function (data) {
@@ -70,10 +71,11 @@
             }
             function search_massage(){
                 let message = document.getElementById("byMessage").value;
-                let url = "http://localhost:8080/chatroom/search/message/"+message;
+                let url = "/chatroom/search/message/"+message;
                 fetch(url)
                     .then(function (response) {
                         if (response.status !== 200) {
+                            console.log("there was an error. response.status: ", response.status);
                             return;
                         }
                         response.json().then(function (data) {
