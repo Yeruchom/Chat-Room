@@ -9,8 +9,9 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+//a session listener that is fired when the session is destroyed and deletes
+// that user from the list of connected users
 @Component
-
 @WebListener
 public class SessionListener implements HttpSessionListener {
 
@@ -20,18 +21,13 @@ public class SessionListener implements HttpSessionListener {
     @Resource(name = "ConnectedUserBean")
     private Connected connectedUsers;
 
-//    public SessionListener() {
-//        super();
-//    }
-
     public void sessionCreated(final HttpSessionEvent event) {
         System.out.println("created session");
     }
 
-    //does not fire when user deletes his cookies/sessions??
+    //does not fire when user deletes his cookies/sessions in the browser??
     public void sessionDestroyed(final HttpSessionEvent event) {
-        System.out.println(mySessionBean.getName() + " session is destroyed. ");
-//        System.out.println("bean: "+         mySessionBean.getName());
+//        System.out.println(mySessionBean.getName() + " session is destroyed. ");
         connectedUsers.remove(mySessionBean.getName());
     }
 }

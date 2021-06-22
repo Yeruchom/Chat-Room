@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+//an interceptor that checks always that the user is logged in. (accept by the url "/" or "login" obviously)
 public class LoggingInterceptor implements HandlerInterceptor {
 
     private User mySessionBean;
@@ -21,11 +22,10 @@ public class LoggingInterceptor implements HandlerInterceptor {
             return true;
 
         if (!mySessionBean.getLoggedIn()){
-            System.out.print("redirecting in interceptor. uri: " + request.getRequestURI());
+//            System.out.print("redirecting in interceptor. uri: " + request.getRequestURI());
             response.sendRedirect("/");
             return false;
         }
-//        System.out.print("-------- intercepter: "+ mySessionBean.getTest() +" url: " + request.getRequestURL() + " uri: " + request.getRequestURI());
 
         return true;
     }

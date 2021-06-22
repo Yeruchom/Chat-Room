@@ -11,11 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.annotation.Resource;
 
 
-/*
-  this is a class for configuring SringMVC
-  here we register our interceptor class and the session listener
-  WebMvcConfigurer allows configuring all of the MVC:
- */
+//this is a class for configuring our interceptor
 @EnableWebMvc
 @Configuration
 public class MyConfig implements WebMvcConfigurer {

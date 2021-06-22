@@ -16,14 +16,14 @@ public class Message{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NotEmpty(message = "Name is mandatory")//no need for this since it is filled out by the thymeleaf
+    @NotEmpty(message = "Name is mandatory")//no need for this since it is filled out automatically by thymeleaf
     private String name;
 
     @NotEmpty(message = "Can't enter an empty message")
     private String text;
 
 //    @GeneratedValue(LocalTime.now()) //default value
-    private LocalTime time;
+//    private LocalTime time; //not in use now
 
     public Message() {}
 

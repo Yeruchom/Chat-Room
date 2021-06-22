@@ -4,18 +4,18 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.LinkedList;
-import java.util.List;
 
+/**
+ * this class is a bean that will be injected in the application scope.
+ */
 @Component
 public class Connected implements Serializable {
     private LinkedList<String> connected;
 
-    private boolean changed = false;
-
     public Connected() {connected = new LinkedList<String>(); }
+    public synchronized Integer connectedCount() {return connected.size();}
 
-//    public synchronized LinkedList<String> getConnected() {return connected;}
-
+    //returns a list of all connected users, except the user that is asking for the list..
     public synchronized LinkedList<String> getConnected(String except) {
         LinkedList<String> copyOfConnected = new LinkedList<String>(connected);
         copyOfConnected.remove(except);
@@ -24,15 +24,6 @@ public class Connected implements Serializable {
     public synchronized boolean exists(String name){
         return connected.contains(name);
     }
-    public synchronized void add(String name){connected.add(name);
-        setChanged(true);}
-    public synchronized void remove(String name){connected.remove(name);
-        setChanged(true);}
-
-    public synchronized void setChanged(boolean changed) {
-        this.changed = changed;
-    }
-    public synchronized boolean changed() {
-        return changed;
-    }
+    public synchronized void add(String name){connected.add(name); }
+    public synchronized void remove(String name){connected.remove(name); }
 }
