@@ -1,39 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="utf-8">-->
-<!--    <meta http-equiv="x-ua-compatible" content="ie=edge">-->
-<!--    <title>Search</title>-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
-<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
-<!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>Search messages</h1>-->
-
-
-<!--<form action="#" th:action="@{/login}" method="post">-->
-<!--    <div class="row">-->
-<!--        <div class="form-group col-md-6">-->
-<!--            <label for="serach" class="col-form-label">Search</label>-->
-<!--            <input type="text"  class="form-control" name="serach" id="serach" required>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="row">-->
-<!--        <div class="col-md-6 mt-5">-->
-<!--            <input type="submit" class="btn btn-primary" value="loog in">-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</form>-->
-
-
-<!--<a href="/chatroom">Back to ChatRoom</a>-->
-<!--<a href="/logout">Log out</a>-->
-<!--</body>-->
-<!--</html>-->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
@@ -41,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Search</title>
-    <style>
-        #show{visibility:hidden}
-    </style>
+<!--    <style>-->
+<!--        #show{visibility:hidden}-->
+<!--    </style>-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
@@ -56,6 +20,9 @@
 
             function search_name(){
                 let name = document.getElementById("byName").value;
+                // if(name == null || name == undefined)
+
+
                 let url = "/chatroom/search/name/"+name;
                 fetch(url)
                     .then(function (response) {
@@ -63,10 +30,15 @@
                             console.log("there was an error. response.status: ", response.status);
                             return;
                         }
-                        response.json().then(function (data) {
-                            document.getElementById("show").style.visibility = "visible";
-                            DisplayMessages(data);
-                        });
+                        // response.json().then(function (data) {
+                        //     // document.getElementById("show").style.visibility = "visible";
+                        //     DisplayMessages(data);
+                        // });
+                        response.text().then((text)=> {
+                            if (text.length > 0)
+                                DisplayMessages(JSON.parse(text));
+                            else return;
+                        })
                     });
             }
             function search_massage(){
@@ -78,27 +50,40 @@
                             console.log("there was an error. response.status: ", response.status);
                             return;
                         }
-                        response.json().then(function (data) {
-                            document.getElementById("show").style.visibility = "visible";
-                            DisplayMessages(data);
-                        });
+                        // response.json().then(function (data) {
+                        //     // document.getElementById("show").style.visibility = "visible";
+                        //     DisplayMessages(data);
+                        // });
+                        response.text().then((text)=> {
+                            if (text.length > 0)
+                                DisplayMessages(JSON.parse(text));
+                            else
+                                return;
+                        })
                     });
             }
             function DisplayMessages(chatMessages){
                 // console.log("displaing");
 
-                let chatWindow = document.getElementById("here");
+                let messages = document.getElementById("here");
 
                 //first clear all messages
-                while (chatWindow.hasChildNodes())
-                    chatWindow.removeChild(chatWindow.lastChild);
+                while (messages.hasChildNodes())
+                    messages.removeChild(messages.lastChild);
 
                 //display the messages
                 for(i in chatMessages){
                     let m = document.createElement("li");
                     m.className = "list-group-item list-group-item-info";
                     m.innerHTML = "name: " + chatMessages[i].name + " " + chatMessages[i].text;
-                    chatWindow.appendChild(m);
+                    messages.appendChild(m);
+                }
+
+                if(messages.childElementCount == 0) {
+                    let noMessage = document.createElement("li");
+                    noMessage.className = "list-group-item list-group-item-info";
+                    noMessage.innerHTML = "No results found for your search";
+                    messages.appendChild(noMessage);
                 }
             }
 
@@ -110,43 +95,43 @@
 
     <meta name="NetsparkQuiltingResult" total-length="4252" removed="0" rules-found="w3089,w8081,w8082,w3140,w1413,w1418,w1419,w8672,w3902,w5493,w4438,w2339,w2701,w5513,w240" />
 </head>
+
+
 <body>
-<h1>Search messages</h1>
+<div class="container">
+    <div class="text-center">
+        <h1 >Search messages</h1>
+    </div>
+    <div class="row">
 
-<div id ="show" >
-    <p>these are the results</p>
-    <ul class="list-group" id="here">
-    </ul>
+        <div class="col-12 col-md-6 m-auto">
+            <div class="alert alert-info row">
+                <h3>search by name:</h3>
+            </div>
+            <label for="byName">enter name for his messages</label>
+            <input type="text" name="byName" id="byName" required><br>
+            <button class="btn btn-primary" id="send_name">send</button>
+            <br>
+        </div>
+        <div class="col-12 col-md-6 " >
+            <div class="alert alert-info row m-auto">
+                <h3>search by message:</h3>
+            </div>
+            <label for="byMessage">enter content to look for messages</label>
+            <input type="text" name="byMessage" id="byMessage" required><br>
+            <button class="btn btn-primary" id="send_message">send</button>
+            <br>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center text-center">
+        <div class="col-12 col-md-6 " id="show">these are the results:
+            <ul class="list-group " id="here">
+            </ul>
+        </div>
+    </div>
+    <div><a class="btn btn-primary" href="/chatroom">Back to ChatRoom</a></div>
+    <div><a href="/logout">Log out</a></div>
 </div>
-
-<h2>search by name</h2>
-<label for="byName">enter name for his messages</label>
-<input type="text" name ="byName" id="byName" required><br>
-<button class="btn btn-primary" id ="send_name">send</button>
-<br>
-
-<h2>search by message</h2>
-<label for="byMessage">enter content to look for messages</label>
-<input type="text" name ="byMessage" id="byMessage" required><br>
-<button class="btn btn-primary" id ="send_message">send</button>
-<br>
-<!--
-<form action="#" th:action="@{/login}" method="post">
-    <div class="row">
-        <div class="form-group col-md-6">
-            <label for="serach" class="col-form-label">Search</label>
-            <input type="text"  class="form-control" name="serach" id="serach" required>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mt-5">
-            <input type="submit" class="btn btn-primary" value="loog in">
-        </div>
-    </div>
-</form>-->
-
-
-<a href="/chatroom">Back to ChatRoom</a>
-<a href="/logout">Log out</a>
 </body>
+
 </html>

@@ -135,12 +135,16 @@ public class MainController {
     //returns a json with all messages of "name"
     @GetMapping("/chatroom/search/name/{name}")
     public @ResponseBody List<Message> GetByName(@PathVariable("name") String name){
+        if(name == null)
+            return null;
         return db.findAllByName(name);
     }
 
     //returns jason with all messages containing the text
     @GetMapping("/chatroom/search/message/{text}")
     public @ResponseBody List<Message> GetByMessage(@PathVariable("text") String text){
+        if(text == null)
+            return null;
         return db.findAllByTextContains(text);
     }
 

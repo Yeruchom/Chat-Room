@@ -22,7 +22,7 @@ public class SessionListener implements HttpSessionListener {
     private Connected connectedUsers;
 
     public void sessionCreated(final HttpSessionEvent event) {
-        System.out.println("created session");
+//        System.out.println("created session");
     }
 
     //does not fire when user deletes his cookies/sessions in the browser??

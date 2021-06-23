@@ -20,22 +20,23 @@
 </head>
 <body>
 <div class="container">
-    <h1>Welcome to our Chat room</h1>
+    <h1 class="text-center">Hi <span th:if="${loggedIn}"> <span th:text=" ${name} "></span></span> welcome to our Chat room</h1>
 
     <span th:if="${exists}">
     <div class="alert alert-info row">
-        user <span th:text="' ' + ${name} ' '+"></span> is already connected.
+      user <div th:text=" ${name} "></div> is already connected.
     </div>
     </span>
 
     <span th:unless="${loggedIn} or ${exists}" >
         <div class="alert alert-info row">
-            you are not logged in. please  enter your name to logg in.
+            you are not logged in. please  enter your name to log in.
         </div>
     </span>
 
     <span th:if="${loggedIn}"><div class="alert alert-info row">
-        <strong>Hi <span th:text=" ${name} "> </span> </strong> would you want to join our Chat room?
+<!--        <strong>Hi <span th:text=" ${name} "> </span> </strong>-->
+        would you want to join our Chat room?
         </div> </span>
 
 
