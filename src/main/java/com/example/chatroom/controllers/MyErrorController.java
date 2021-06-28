@@ -1,4 +1,4 @@
-package com.example.ex4.controllers;
+package com.example.chatroom.controllers;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;

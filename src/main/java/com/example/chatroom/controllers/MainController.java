@@ -1,23 +1,19 @@
-package com.example.ex4.controllers;
+package com.example.chatroom.controllers;
 
-import com.example.ex4.Message;
-import com.example.ex4.MessageRepository;
-import com.example.ex4.beans.Connected;
-import com.example.ex4.beans.User;
+import com.example.chatroom.beans.User;
+import com.example.chatroom.Message;
+import com.example.chatroom.MessageRepository;
+import com.example.chatroom.beans.Connected;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;

@@ -1,13 +1,13 @@
-package com.example.ex4;
+package com.example.chatroom;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Ex4Application {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Ex4Application.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }

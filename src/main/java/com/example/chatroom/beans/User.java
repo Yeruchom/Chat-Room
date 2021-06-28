@@ -1,4 +1,4 @@
-package com.example.ex4.beans;
+package com.example.chatroom.beans;
 
 import org.springframework.stereotype.Component;
 

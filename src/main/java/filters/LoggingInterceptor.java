@@ -1,6 +1,6 @@
 package filters;
 
-import com.example.ex4.beans.User;
+import com.example.chatroom.beans.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;

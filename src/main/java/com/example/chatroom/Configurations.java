@@ -1,7 +1,7 @@
-package com.example.ex4;
+package com.example.chatroom;
 
-import com.example.ex4.beans.Connected;
-import com.example.ex4.beans.User;
+import com.example.chatroom.beans.User;
+import com.example.chatroom.beans.Connected;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;

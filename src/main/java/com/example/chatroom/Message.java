@@ -1,4 +1,4 @@
-package com.example.ex4;
+package com.example.chatroom;
 
 import net.bytebuddy.implementation.bind.annotation.Default;
 

@@ -1,11 +1,10 @@
-package com.example.ex4;
+package com.example.chatroom;
 
-import com.example.ex4.beans.User;
+import com.example.chatroom.beans.User;
 import filters.LoggingInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
