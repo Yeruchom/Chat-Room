@@ -1,8 +1,12 @@
 chat room
-by Yeruchom Heller 
 
-link to javadoc
-first of all, we checked that the users name does not exist yet, and if it does we display a message to enter another name.
+this is a fullstack app that allows the users to share a chatroom together.
+using Java, Spring MVC and SQL in server side, and Bootstrap, Thymeleaf, JavaScript and HTML in client side.
+
+the "Main Controller" handles all URL's. first the user needs to register and log in, where the login status is saved in the session
+that is a bean injected into controller, according to the principles of Inversion of control - dependency injection.
+
+we checked that the users name does not exist yet, and if it does we display a message to enter another name.
 
 as written in the instructions, the login page is handled with Thymeleaf, including error messages when the input is not valid etc.
 
