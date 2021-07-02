@@ -1,4 +1,4 @@
-chat room
+<h1>chat room</h1>
 
 this is a fullstack app that allows the users to share a chatroom together.
 using Java, Spring MVC and SQL in server side, and Bootstrap, Thymeleaf, JavaScript and HTML in client side.
