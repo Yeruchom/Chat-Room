@@ -1,7 +1,7 @@
 
 <h1>Chat Room</h1>
 
-<h3>this is a full-stack app that allows users to share a chatroom together. using Java, Spring MVC and SQL in server side,
+<h3>this is a full-stack web application that allows users to share a chatroom together. using Java, Spring MVC and SQL in server side,
 and Bootstrap, Thymeleaf, JavaScript and HTML in client side.</h3>
 
 <p>the "Main Controller" handles all URL's. first the user needs to register and log in, where the login status is saved in the session
