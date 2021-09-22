@@ -34,38 +34,6 @@ public class MainController {
     @Autowired
     private MessageRepository db;
 
-    //returns the first login page
-    @GetMapping("/")
-    public String MainPage(Model model) {
-        return "login";
-    }
-
-
-    //gets the users name from the login page
-    //returns the login view again with en error message (via thymeleaf) if the name is empty or it exists
-    //and a welcome message with a link to the chatroom otherwise
-    @PostMapping("/login")
-    public String login(@RequestParam String name, Model model) {
-        if(name.trim() == "") {
-            model.addAttribute("empty", "t");
-            return "login";
-        }
-
-        if(connectedUsers.exists(name)){
-            model.addAttribute("exists", "t");
-            model.addAttribute("name", name);
-            return "login";
-        }
-
-        mySessionBean.setLoggedIn(true);
-        mySessionBean.setName(name);
-        connectedUsers.add(name);//add him to the list of connected users
-
-        model.addAttribute("loggedIn", "t");
-        model.addAttribute("name", name);
-        return "login";
-    }
-
     //the url that handles the logging out of the user.
     //it also redirects to the login page
     @GetMapping("/logout")
