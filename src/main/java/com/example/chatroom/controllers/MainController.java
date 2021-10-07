@@ -47,7 +47,7 @@ public class MainController {
 
 
     //retusns a json with the list of connected users.
-    //if the parameter "number" - is the number of connected users - it returns null (no need to update)
+    //if the parameter "number" === the number of connected users - it returns null (no need to update)
     @GetMapping("/connectedUsers/{number}")
     public @ResponseBody List<String> ConnectedUsers(@PathVariable Integer number, Model model) {
         if(connectedUsers.connectedCount()-1 == number)
@@ -80,7 +80,7 @@ public class MainController {
             return "forward:/chatroom";
     }
 
-    //return a json eith the last 5 messages.
+    //return a json with the last 5 messages.
     // just if there is a new message, checked by parameter "lastId"
     @GetMapping("/chatroom/getChat/{lastId}")
     public @ResponseBody List<Message> GetMessage(@PathVariable String lastId){

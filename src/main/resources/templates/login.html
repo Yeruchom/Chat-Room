@@ -19,6 +19,7 @@
 
 </head>
 <body>
+
 <div class="container">
     <h1 class="text-center">Hi <span th:if="${loggedIn}"> <span th:text=" ${name} "></span></span> welcome to our Chat room</h1>
 
@@ -45,15 +46,15 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="name" class="col-form-label">Name</label>
-                    <input type="text"  class="form-control" name="name" id="name" placeholder="Name">
+                    <input type="text"  class="form-control" name="name" id="name" placeholder="Name" required pattern=".*\S+.*" title="This field is required">
 <!--                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>-->
                 </div>
             </div>
-                <span th:if="${empty}">
-                    <div class="alert alert-danger row">
-                        name can't be empty
-                    </div>
-                </span>
+<!--                <span th:if="${empty}">-->
+<!--                    <div class="alert alert-danger row">-->
+<!--                        name can't be empty-->
+<!--                    </div>-->
+<!--                </span>-->
 
             <div class="row">
                 <div class="col-md-6 mt-5">

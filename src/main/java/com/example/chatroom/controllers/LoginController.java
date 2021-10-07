@@ -37,10 +37,11 @@ public class LoginController {
     //and a welcome message with a link to the chatroom otherwise
     @PostMapping("/login")
     public String login(@RequestParam String name, Model model) {
-        if(name.trim() == "") {
-            model.addAttribute("empty", "t");
-            return "login";
-        }
+        //this is already validated in the html
+//        if(name.trim() == "") {
+//            model.addAttribute("empty", "t");
+//            return "login";
+//        }
 
         if(connectedUsers.exists(name)){
             model.addAttribute("exists", "t");
